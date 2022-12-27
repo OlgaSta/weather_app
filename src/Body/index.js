@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Button from 'react-bootstrap/Button';
-import Map from './Map';
-import TimeSelector from './TimeSelector';
 import './body.scss';
 import SearchBar from './SearchBar';
+import Forecast from './Tabs/Forecast';
+import Now from './Tabs/Now';
+
+
 
 
 function Body() {
@@ -15,12 +17,15 @@ function Body() {
     const handleCloseBar = () => setShowBar(false);
     const handleShowBar = () => setShowBar(true);
 
+    
+    
+
     return (
         <>
             <Button className = "mb-4" variant="primary" onClick={handleShowBar}>
                 Search
             </Button>
-            <SearchBar show={showBar} handleClose = {handleCloseBar} />
+            <SearchBar show={showBar} handleClose = {handleCloseBar}  />
             <Tabs
                 defaultActiveKey="now"
                 id="justify-tab-example"
@@ -28,24 +33,16 @@ function Body() {
                 justify
             >
                 <Tab eventKey="now" title="Now">
-                    <TimeSelector id="now" />
-                    <Map />
+                    <Now />
                 </Tab>
-                <Tab eventKey="Forcast" title="Forcast">
-                    <TimeSelector id="forcast" />
-                    <Map />
-
-
+                <Tab eventKey="Forecast" title="Forecast">
+                   <Forecast />
                 </Tab>
-                {/* <Tab eventKey="longer-tab" title="Loooonger Tab">
-                <TimeSelector id="longer"/>
-                <Map />
-
-
-            </Tab> */}
+                
             </Tabs>
         </>
     );
 }
+
 
 export default Body;
