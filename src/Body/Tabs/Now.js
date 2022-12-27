@@ -7,7 +7,7 @@ function Now () {
 
     useEffect(() => {
         (async function(){
-            const weather = await getWeather(defaultSearchParams);
+            const weather = await getWeather();
             const response = await weather.json();
             console.log('response', response);
         })()

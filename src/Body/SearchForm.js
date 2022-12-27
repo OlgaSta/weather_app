@@ -19,7 +19,7 @@ function SearchForm() {
 
     ];
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(event);
 
@@ -31,9 +31,9 @@ function SearchForm() {
 
         };
 
-        // const weather = await getWeather(data);
-        // const response = await weather.json();
-        // console.log('response', response);
+        const weather = await getWeather(data);
+        const response = await weather.json();
+        console.log('response', response);
 
 
     }
