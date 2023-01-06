@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import Data from './Data';
 import moment from 'moment';
 
-function TimeSelector({data}) {
+
+function TimeSelector({ data }) {
 
   const [selectedDay, setSelectedDay] = useState(0);
   const [selectedHour, setSelectedHour] = useState(0);
@@ -12,8 +13,8 @@ function TimeSelector({data}) {
   const [hours, setHours] = useState([]);
   const [currentData, setCurrentData] = useState(null);
 
-  
-  const getCurrentData = () =>{
+
+  const getCurrentData = useCallback((cbFn) => {
     data?.list.forEach(item => {
       const timestamp = item.dt;
       const momentDate = moment.unix(timestamp);
@@ -21,57 +22,57 @@ function TimeSelector({data}) {
       const day = momentDate.format('DD');
       const hour = momentDate.format('HH:mm');
 
-      if(selectedDay === day && selectedHour === hour){
-        setCurrentData(item)
-      }
-           
+      cbFn(item, day, hour);
+
     });
 
-  }
+  }, [data]);
 
   useEffect(() => {
     const days = [];
     const hours = [];
 
-    data?.list.forEach(item => {
-      const timestamp = item.dt;
-      const momentDate = moment.unix(timestamp);
-
-      const day = momentDate.format('DD');
-      const hour = momentDate.format('HH:mm');
-
-      if(!days.includes(day)){
+    getCurrentData((item, day, hour) => {
+      if (!days.includes(day)) {
         days.push(day);
       }
-      if(!hours.includes(hour)){
+      if (!hours.includes(hour)) {
         hours.push(hour);
       }
-      
     });
+
 
     setDays(days);
     setHours(hours);
     setSelectedDay(days[0]);
     setSelectedHour(hours[0]);
-    if(data){
-       setCurrentData(data.list[0]);
+    if (data) {
+      setCurrentData(data.list[0]);
     }
-   
-  }, [data]);
+
+  }, [data, getCurrentData]);
 
   const handleOnChangeDays = (event) => {
     setSelectedDay(event.currentTarget.value);
-    getCurrentData();
+    getCurrentData((item, day, hour) => {
+      if (selectedDay === day && selectedHour === hour) {
+        setCurrentData(item)
+      }
+    });
   }
 
   const handleOnChangeHours = (event) => {
     setSelectedHour(event.currentTarget.value);
-    getCurrentData();
+    getCurrentData((item, day, hour) => {
+      if (selectedDay === day && selectedHour === hour) {
+        setCurrentData(item)
+      }
+    });
   }
 
   return (
     <>
-      
+
       <ButtonGroup className="w-100">
         {days.map((day, idx) => (
           <ToggleButton

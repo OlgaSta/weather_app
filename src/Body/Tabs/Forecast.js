@@ -5,6 +5,7 @@ import { getForecast } from '../../services/apiService';
 
 
 
+
 function Forecast() {
     const [forecastData, setForecastData] = useState(null);
 
@@ -19,7 +20,6 @@ function Forecast() {
 
     return (
         <>
-            {/* <Data data={forecastData} /> */}
             <TimeSelector data = {forecastData}/>
             <Map />
         </>
