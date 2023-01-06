@@ -43,7 +43,7 @@ function TimeSelector({ data }) {
 
 
     setDays(days);
-    setHours(hours);
+    setHours(hours.sort());
     setSelectedDay(days[0]);
     setSelectedHour(hours[0]);
     if (data) {
@@ -55,7 +55,7 @@ function TimeSelector({ data }) {
   const handleOnChangeDays = (event) => {
     setSelectedDay(event.currentTarget.value);
     getCurrentData((item, day, hour) => {
-      if (selectedDay === day && selectedHour === hour) {
+      if (event.currentTarget.value === day && selectedHour === hour) {
         setCurrentData(item)
       }
     });
@@ -64,7 +64,7 @@ function TimeSelector({ data }) {
   const handleOnChangeHours = (event) => {
     setSelectedHour(event.currentTarget.value);
     getCurrentData((item, day, hour) => {
-      if (selectedDay === day && selectedHour === hour) {
+      if (selectedDay === day && event.currentTarget.value === hour) {
         setCurrentData(item)
       }
     });
@@ -101,6 +101,7 @@ function TimeSelector({ data }) {
             value={hour}
             checked={hour === selectedHour}
             onChange={handleOnChangeHours}
+            disabled={moment().unix() > moment(`${days[0]} ${hour}`, 'DD HH:mm').unix() && selectedDay === days[0]}
           >
             {hour}
           </ToggleButton>
