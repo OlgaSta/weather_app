@@ -13,6 +13,8 @@ import Now from './Tabs/Now';
 function Body() {
 
     const [showBar, setShowBar] = useState(false);
+    const [weatherData, setWeatherData] = useState(null);
+
 
     const handleCloseBar = () => setShowBar(false);
     const handleShowBar = () => setShowBar(true);
@@ -25,7 +27,12 @@ function Body() {
             <Button className = "mb-4" variant="primary" onClick={handleShowBar}>
                 Search
             </Button>
-            <SearchBar show={showBar} handleClose = {handleCloseBar}  />
+
+            <SearchBar 
+            setWeatherData={setWeatherData}
+            show={showBar} 
+            handleClose = {handleCloseBar}  />
+
             <Tabs
                 defaultActiveKey="now"
                 id="justify-tab-example"
@@ -33,7 +40,7 @@ function Body() {
                 justify
             >
                 <Tab eventKey="now" title="Now">
-                    <Now />
+                    <Now weatherData={weatherData} setWeatherData={setWeatherData}/>
                 </Tab>
                 <Tab eventKey="Forecast" title="Forecast">
                    <Forecast />
