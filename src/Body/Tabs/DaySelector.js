@@ -8,7 +8,6 @@ import moment from 'moment';
 
 function DaySelector({
     data,
-    setCurrentData,
     getCurrentData,
 }) {
 
@@ -67,7 +66,6 @@ function DaySelector({
                 ))}
             </ButtonGroup>
             <HourSelector
-                setCurrentData={setCurrentData}
                 hours={hours}
                 selectedDay = {selectedDay}
             />
