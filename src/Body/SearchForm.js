@@ -7,7 +7,7 @@ function SearchForm({ handleCloseBar, setWeatherData }) {
 
     const cities = [
         { label: 'Tallinn', lat: 59.436962, lon: 24.753574 },
-        { label: 'Tartu', lat: 58.378025, lon: 26.728493 },
+        { label: 'Tartu', lat: 58.3780, lon: 26.7284 },
         { label: 'Pärnu', lat: 58.3917, lon: 24.4953 },
         { label: 'Kuresaare', lat: 58.2550, lon: 22.4919 },
     ];
