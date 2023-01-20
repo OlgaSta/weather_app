@@ -6,10 +6,17 @@ import { setShowSearchBar } from '../services/stateService';
 
 function SearchBar() {
 
+    // useSelector это react-redux hook для случания состояния redux.
+    // при изменении состояния useSelector запускает рендер компонента.
+
     const showSearchBar = useSelector((state) => state.showSearchBar);
 
+    // useDispatch это react-redux hook для тригера изменения состояния
+    // useDispatch сначала надо инициализировать, а потом использовать.
+    // useDispatch возвращает функцию dispatcher
     const dispatch = useDispatch();
 
+    // dispatcher'у мы передаем Action с новыми данными
     const handleClose =() => dispatch(setShowSearchBar(false));
     
     return (
